@@ -59,9 +59,10 @@ import { format } from 'date-fns';
           (click)="viewActivity(activity.id)"
         >
           <img
-            [src]="activity.imageUrl"
+            [src]="activity.imageUrl || defaultImageUrl"
             [alt]="activity.title"
             class="w-full h-48 object-cover rounded-lg mb-4"
+            (error)="handleImageError($event)"
           />
           <div class="space-y-2">
             <h3 class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
@@ -98,6 +99,7 @@ export class EducationComponent implements OnInit {
   activities: Activity[] = [];
   searchTerm = '';
   selectedType: ActivityType | '' = '';
+  defaultImageUrl = 'https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg';
 
   constructor(
     private activityService: ActivityService,
@@ -129,5 +131,10 @@ export class EducationComponent implements OnInit {
 
   viewActivity(id: string) {
     this.router.navigate(['/education', id]);
+  }
+
+  handleImageError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    img.src = this.defaultImageUrl;
   }
 }

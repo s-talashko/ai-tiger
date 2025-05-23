@@ -30,9 +30,10 @@ import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dia
         <!-- Activity Details -->
         <div class="space-y-6">
           <img
-            [src]="activity.imageUrl"
+            [src]="activity.imageUrl || defaultImageUrl"
             [alt]="activity.title"
             class="w-full h-64 object-cover rounded-xl"
+            (error)="handleImageError($event)"
           />
           
           <div class="flex flex-wrap gap-4 text-sm">
@@ -113,6 +114,7 @@ export class ActivityDetailComponent implements OnInit {
   activity?: Activity;
   currentUserId = '1'; // TODO: Get from auth service
   errorMessage = '';
+  defaultImageUrl = 'https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg';
 
   constructor(
     private route: ActivatedRoute,
@@ -147,6 +149,11 @@ export class ActivityDetailComponent implements OnInit {
 
   formatDate(date: Date): string {
     return format(new Date(date), 'MMM d, yyyy h:mm a');
+  }
+
+  handleImageError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    img.src = this.defaultImageUrl;
   }
 
   async joinActivity() {
