@@ -6,7 +6,6 @@ import { ActivityService } from '../services/activity.service';
 import { format } from 'date-fns';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { ErrorDialogComponent } from '../../components/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-activity-detail',
@@ -14,6 +13,11 @@ import { ErrorDialogComponent } from '../../components/error-dialog/error-dialog
   imports: [CommonModule, RouterLink],
   template: `
     <div class="space-y-6" *ngIf="activity">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-300 mb-4">
+        {{ errorMessage }}
+      </div>
+
       <!-- Header -->
       <div class="p-6 bg-opacity-20 bg-white backdrop-blur-lg rounded-xl">
         <div class="flex items-center justify-between mb-6">
@@ -108,6 +112,7 @@ import { ErrorDialogComponent } from '../../components/error-dialog/error-dialog
 export class ActivityDetailComponent implements OnInit {
   activity?: Activity;
   currentUserId = '1'; // TODO: Get from auth service
+  errorMessage = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -124,13 +129,13 @@ export class ActivityDetailComponent implements OnInit {
           if (activity) {
             this.activity = activity;
           } else {
-            this.showError('Activity not found');
-            this.router.navigate(['/education']);
+            this.errorMessage = 'Activity not found';
+            setTimeout(() => this.router.navigate(['/education']), 2000);
           }
         },
         error: (error) => {
-          this.showError(error.message);
-          this.router.navigate(['/education']);
+          this.errorMessage = error.message;
+          setTimeout(() => this.router.navigate(['/education']), 2000);
         }
       });
     }
@@ -142,16 +147,6 @@ export class ActivityDetailComponent implements OnInit {
 
   formatDate(date: Date): string {
     return format(new Date(date), 'MMM d, yyyy h:mm a');
-  }
-
-  private showError(message: string): void {
-    this.dialog.open(ErrorDialogComponent, {
-      data: { message },
-      width: '400px',
-      maxWidth: '90vw',
-      panelClass: ['custom-dialog-container', 'centered-dialog'],
-      backdropClass: 'custom-backdrop'
-    });
   }
 
   async joinActivity() {
@@ -178,9 +173,12 @@ export class ActivityDetailComponent implements OnInit {
           next: (updatedActivity) => {
             if (updatedActivity) {
               this.activity = updatedActivity;
+              this.errorMessage = '';
             }
           },
-          error: (error) => this.showError(error.message)
+          error: (error) => {
+            this.errorMessage = error.message;
+          }
         });
       }
     });
@@ -210,9 +208,12 @@ export class ActivityDetailComponent implements OnInit {
           next: (updatedActivity) => {
             if (updatedActivity) {
               this.activity = updatedActivity;
+              this.errorMessage = '';
             }
           },
-          error: (error) => this.showError(error.message)
+          error: (error) => {
+            this.errorMessage = error.message;
+          }
         });
       }
     });
@@ -248,7 +249,9 @@ export class ActivityDetailComponent implements OnInit {
           next: () => {
             this.router.navigate(['/education']);
           },
-          error: (error) => this.showError(error.message)
+          error: (error) => {
+            this.errorMessage = error.message;
+          }
         });
       }
     });
