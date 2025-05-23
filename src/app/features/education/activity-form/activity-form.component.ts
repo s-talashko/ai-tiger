@@ -4,12 +4,11 @@ import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Activity, ActivityType } from '../models/activity.model';
 import { ActivityService } from '../services/activity.service';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-activity-form',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule, MatTooltipModule],
+  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule],
   template: `
     <div class="space-y-6">
       <!-- Header -->
@@ -25,15 +24,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         <form [formGroup]="activityForm" (ngSubmit)="onSubmit()" class="space-y-6">
           <div class="space-y-4">
             <div>
-              <div class="flex items-center gap-2 mb-1">
-                <label class="text-sm font-medium" [class]="getFieldTextColor('title')">Title *</label>
-                <div 
-                  class="text-gray-400 cursor-help w-4 h-4 flex items-center justify-center"
-                  matTooltip="Give your activity a clear and descriptive title"
-                  matTooltipPosition="right"
-                  [matTooltipShowDelay]="200"
-                >ℹ️</div>
-              </div>
+              <label class="block text-sm font-medium mb-1" [class]="getFieldTextColor('title')">Title *</label>
               <input
                 type="text"
                 formControlName="title"
@@ -46,15 +37,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             </div>
 
             <div>
-              <div class="flex items-center gap-2 mb-1">
-                <label class="text-sm font-medium" [class]="getFieldTextColor('type')">Type *</label>
-                <div 
-                  class="text-gray-400 cursor-help w-4 h-4 flex items-center justify-center"
-                  matTooltip="Select the type of activity you're organizing"
-                  matTooltipPosition="right"
-                  [matTooltipShowDelay]="200"
-                >ℹ️</div>
-              </div>
+              <label class="block text-sm font-medium mb-1" [class]="getFieldTextColor('type')">Type *</label>
               <select
                 formControlName="type"
                 [class]="getInputClasses('type')"
@@ -70,15 +53,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             </div>
 
             <div>
-              <div class="flex items-center gap-2 mb-1">
-                <label class="text-sm font-medium" [class]="getFieldTextColor('date')">Date and Time *</label>
-                <div 
-                  class="text-gray-400 cursor-help w-4 h-4 flex items-center justify-center"
-                  matTooltip="When will this activity take place?"
-                  matTooltipPosition="right"
-                  [matTooltipShowDelay]="200"
-                >ℹ️</div>
-              </div>
+              <label class="block text-sm font-medium mb-1" [class]="getFieldTextColor('date')">Date and Time *</label>
               <input
                 type="datetime-local"
                 formControlName="date"
@@ -91,15 +66,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             </div>
 
             <div>
-              <div class="flex items-center gap-2 mb-1">
-                <label class="text-sm font-medium text-gray-300">Location</label>
-                <div 
-                  class="text-gray-400 cursor-help w-4 h-4 flex items-center justify-center"
-                  matTooltip="Where will this activity be held?"
-                  matTooltipPosition="right"
-                  [matTooltipShowDelay]="200"
-                >ℹ️</div>
-              </div>
+              <label class="block text-sm font-medium text-gray-300 mb-1">Location</label>
               <input
                 type="text"
                 formControlName="location"
@@ -108,15 +75,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             </div>
 
             <div>
-              <div class="flex items-center gap-2 mb-1">
-                <label class="text-sm font-medium text-gray-300">Image URL</label>
-                <div 
-                  class="text-gray-400 cursor-help w-4 h-4 flex items-center justify-center"
-                  matTooltip="Add an image URL to make your activity more appealing"
-                  matTooltipPosition="right"
-                  [matTooltipShowDelay]="200"
-                >ℹ️</div>
-              </div>
+              <label class="block text-sm font-medium text-gray-300 mb-1">Image URL</label>
               <input
                 type="text"
                 formControlName="imageUrl"
@@ -125,15 +84,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             </div>
 
             <div>
-              <div class="flex items-center gap-2 mb-1">
-                <label class="text-sm font-medium text-gray-300">Description</label>
-                <div 
-                  class="text-gray-400 cursor-help w-4 h-4 flex items-center justify-center"
-                  matTooltip="Provide details about what participants can expect"
-                  matTooltipPosition="right"
-                  [matTooltipShowDelay]="200"
-                >ℹ️</div>
-              </div>
+              <label class="block text-sm font-medium text-gray-300 mb-1">Description</label>
               <textarea
                 formControlName="description"
                 rows="4"
@@ -142,15 +93,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             </div>
 
             <div>
-              <div class="flex items-center gap-2 mb-1">
-                <label class="text-sm font-medium text-gray-300">Tags</label>
-                <div 
-                  class="text-gray-400 cursor-help w-4 h-4 flex items-center justify-center"
-                  matTooltip="Add comma-separated tags to help categorize your activity"
-                  matTooltipPosition="right"
-                  [matTooltipShowDelay]="200"
-                >ℹ️</div>
-              </div>
+              <label class="block text-sm font-medium text-gray-300 mb-1">Tags</label>
               <input
                 type="text"
                 formControlName="tags"
