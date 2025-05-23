@@ -146,10 +146,12 @@ export class ActivityDetailComponent implements OnInit {
         confirmText: 'Join',
         cancelText: 'Cancel'
       },
-      position: { left: '50%', top: '50%' },
       width: '400px',
+      maxWidth: '90vw',
       panelClass: ['custom-dialog-container', 'centered-dialog'],
-      backdropClass: 'custom-backdrop'
+      backdropClass: 'custom-backdrop',
+      hasBackdrop: true,
+      disableClose: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -174,10 +176,12 @@ export class ActivityDetailComponent implements OnInit {
         confirmText: 'Leave',
         cancelText: 'Cancel'
       },
-      position: { left: '50%', top: '50%' },
       width: '400px',
+      maxWidth: '90vw',
       panelClass: ['custom-dialog-container', 'centered-dialog'],
-      backdropClass: 'custom-backdrop'
+      backdropClass: 'custom-backdrop',
+      hasBackdrop: true,
+      disableClose: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -208,10 +212,12 @@ export class ActivityDetailComponent implements OnInit {
         confirmText: 'Delete',
         cancelText: 'Cancel'
       },
-      position: { left: '50%', top: '50%' },
       width: '400px',
+      maxWidth: '90vw',
       panelClass: ['custom-dialog-container', 'centered-dialog'],
-      backdropClass: 'custom-backdrop'
+      backdropClass: 'custom-backdrop',
+      hasBackdrop: true,
+      disableClose: false
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -54,11 +54,11 @@ body {
 
 /* Dialog Styles */
 .custom-dialog-container {
-  @apply bg-gray-900 text-white rounded-xl border border-white/10;
+  @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-900 text-white rounded-xl border border-white/10 z-50;
 }
 
 .custom-backdrop {
-  @apply bg-black/50 backdrop-blur-sm;
+  @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-40;
 }
 
 .mat-mdc-dialog-container {
@@ -74,4 +74,5 @@ body {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
+  z-index: 1000 !important;
 }
