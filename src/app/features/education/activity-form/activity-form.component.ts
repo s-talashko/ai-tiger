@@ -4,11 +4,12 @@ import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Activity, ActivityType } from '../models/activity.model';
 import { ActivityService } from '../services/activity.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-activity-form',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule, MatTooltipModule],
   template: `
     <div class="space-y-6">
       <!-- Header -->
@@ -24,37 +25,73 @@ import { ActivityService } from '../services/activity.service';
         <form [formGroup]="activityForm" (ngSubmit)="onSubmit()" class="space-y-6">
           <div class="space-y-4">
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-1">Title *</label>
+              <label class="block text-sm font-medium mb-1">
+                <span [class]="getFieldTextColor('title')">Title *</span>
+                <span 
+                  class="ml-2 text-gray-400 cursor-help"
+                  matTooltip="Give your activity a clear and descriptive title"
+                >ℹ️</span>
+              </label>
               <input
                 type="text"
                 formControlName="title"
-                class="w-full px-4 py-2 bg-black/30 rounded-lg border border-white/10 focus:outline-none focus:border-cyan-400"
+                [class]="getInputClasses('title')"
+                [class.shake]="isFieldInvalid('title')"
               />
+              <div *ngIf="isFieldInvalid('title')" class="mt-1 text-red-400 text-sm">
+                Title is required
+              </div>
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-1">Type</label>
+              <label class="block text-sm font-medium mb-1">
+                <span [class]="getFieldTextColor('type')">Type *</span>
+                <span 
+                  class="ml-2 text-gray-400 cursor-help"
+                  matTooltip="Select the type of activity you're organizing"
+                >ℹ️</span>
+              </label>
               <select
                 formControlName="type"
-                class="w-full px-4 py-2 bg-black/30 rounded-lg border border-white/10 focus:outline-none focus:border-cyan-400"
+                [class]="getInputClasses('type')"
+                [class.shake]="isFieldInvalid('type')"
               >
                 <option value="Education">Education</option>
                 <option value="Social">Social</option>
                 <option value="Team-building">Team-building</option>
               </select>
+              <div *ngIf="isFieldInvalid('type')" class="mt-1 text-red-400 text-sm">
+                Type is required
+              </div>
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-1">Date and Time *</label>
+              <label class="block text-sm font-medium mb-1">
+                <span [class]="getFieldTextColor('date')">Date and Time *</span>
+                <span 
+                  class="ml-2 text-gray-400 cursor-help"
+                  matTooltip="When will this activity take place?"
+                >ℹ️</span>
+              </label>
               <input
                 type="datetime-local"
                 formControlName="date"
-                class="w-full px-4 py-2 bg-black/30 rounded-lg border border-white/10 focus:outline-none focus:border-cyan-400"
+                [class]="getInputClasses('date')"
+                [class.shake]="isFieldInvalid('date')"
               />
+              <div *ngIf="isFieldInvalid('date')" class="mt-1 text-red-400 text-sm">
+                Date and time are required
+              </div>
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-1">Location</label>
+              <label class="block text-sm font-medium text-gray-300 mb-1">
+                Location
+                <span 
+                  class="ml-2 text-gray-400 cursor-help"
+                  matTooltip="Where will this activity be held?"
+                >ℹ️</span>
+              </label>
               <input
                 type="text"
                 formControlName="location"
@@ -63,7 +100,13 @@ import { ActivityService } from '../services/activity.service';
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-1">Image URL</label>
+              <label class="block text-sm font-medium text-gray-300 mb-1">
+                Image URL
+                <span 
+                  class="ml-2 text-gray-400 cursor-help"
+                  matTooltip="Add an image URL to make your activity more appealing"
+                >ℹ️</span>
+              </label>
               <input
                 type="text"
                 formControlName="imageUrl"
@@ -72,7 +115,13 @@ import { ActivityService } from '../services/activity.service';
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-1">Description</label>
+              <label class="block text-sm font-medium text-gray-300 mb-1">
+                Description
+                <span 
+                  class="ml-2 text-gray-400 cursor-help"
+                  matTooltip="Provide details about what participants can expect"
+                >ℹ️</span>
+              </label>
               <textarea
                 formControlName="description"
                 rows="4"
@@ -81,7 +130,13 @@ import { ActivityService } from '../services/activity.service';
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-1">Tags (comma-separated)</label>
+              <label class="block text-sm font-medium text-gray-300 mb-1">
+                Tags
+                <span 
+                  class="ml-2 text-gray-400 cursor-help"
+                  matTooltip="Add comma-separated tags to help categorize your activity"
+                >ℹ️</span>
+              </label>
               <input
                 type="text"
                 formControlName="tags"
@@ -94,7 +149,7 @@ import { ActivityService } from '../services/activity.service';
             <button
               type="submit"
               [disabled]="activityForm.invalid"
-              class="flex-1 py-2 px-4 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity duration-300 disabled:opacity-50"
+              class="flex-1 py-2 px-4 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {{ isEditMode ? 'Update Activity' : 'Create Activity' }}
             </button>
@@ -109,7 +164,18 @@ import { ActivityService } from '../services/activity.service';
         </form>
       </div>
     </div>
-  `
+  `,
+  styles: [`
+    .shake {
+      animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-1px, 0, 0); }
+      20%, 80% { transform: translate3d(2px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+      40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+  `]
 })
 export class ActivityFormComponent implements OnInit {
   activityForm: FormGroup;
@@ -124,7 +190,7 @@ export class ActivityFormComponent implements OnInit {
   ) {
     this.activityForm = this.fb.group({
       title: ['', Validators.required],
-      type: ['Education'],
+      type: ['Education', Validators.required],
       date: ['', Validators.required],
       location: [''],
       imageUrl: [''],
@@ -150,6 +216,22 @@ export class ActivityFormComponent implements OnInit {
     }
   }
 
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.activityForm.get(fieldName);
+    return field ? field.invalid && (field.dirty || field.touched) : false;
+  }
+
+  getFieldTextColor(fieldName: string): string {
+    return this.isFieldInvalid(fieldName) ? 'text-red-400' : 'text-gray-300';
+  }
+
+  getInputClasses(fieldName: string): string {
+    const baseClasses = 'w-full px-4 py-2 bg-black/30 rounded-lg border focus:outline-none transition-colors duration-300';
+    return this.isFieldInvalid(fieldName)
+      ? `${baseClasses} border-red-400 focus:border-red-400`
+      : `${baseClasses} border-white/10 focus:border-cyan-400`;
+  }
+
   onSubmit() {
     if (this.activityForm.valid) {
       const formValue = this.activityForm.value;
@@ -169,6 +251,13 @@ export class ActivityFormComponent implements OnInit {
         this.activityService.addActivity(activity as Omit<Activity, 'id'>)
           .subscribe(() => this.router.navigate(['/education']));
       }
+    } else {
+      Object.keys(this.activityForm.controls).forEach(key => {
+        const control = this.activityForm.get(key);
+        if (control) {
+          control.markAsTouched();
+        }
+      });
     }
   }
 }
