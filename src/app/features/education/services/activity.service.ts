@@ -101,7 +101,7 @@ export class ActivityService {
             type: 'Team-building',
             date: new Date('2025-06-01T13:00:00'),
             location: 'VR Suite Gamma',
-            imageUrl: 'https://images.pexels.com/photos/39896/space-station-moon-landing-apollo-15-james-irwin-39896.jpeg',
+            imageUrl: 'https://images.pexels.com/photos/41951/solar-system-emergence-spitzer-telescope-telescope-41951.jpeg',
             hostId: '7',
             hostName: 'Explorer Mike',
             attendees: ['2', '4', '6'],
