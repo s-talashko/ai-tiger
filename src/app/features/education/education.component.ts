@@ -25,7 +25,7 @@ import { format } from 'date-fns';
           </h2>
           <button
             (click)="createActivity()"
-            class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-all duration-300"
+            class="btn-primary"
           >
             Create Activity
           </button>
