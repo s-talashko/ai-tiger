@@ -64,4 +64,22 @@ export class ActivityService {
     this.activities = this.activities.filter(activity => activity.id !== id);
     return of(void 0);
   }
+
+  joinActivity(activityId: string, userId: string): Observable<Activity | undefined> {
+    const activity = this.activities.find(a => a.id === activityId);
+    if (activity && !activity.attendees.includes(userId)) {
+      activity.attendees.push(userId);
+      return of(activity);
+    }
+    return of(undefined);
+  }
+
+  leaveActivity(activityId: string, userId: string): Observable<Activity | undefined> {
+    const activity = this.activities.find(a => a.id === activityId);
+    if (activity) {
+      activity.attendees = activity.attendees.filter(id => id !== userId);
+      return of(activity);
+    }
+    return of(undefined);
+  }
 }

@@ -4,6 +4,8 @@ import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { Activity } from '../models/activity.model';
 import { ActivityService } from '../services/activity.service';
 import { format } from 'date-fns';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-activity-detail',
@@ -69,17 +71,32 @@ import { format } from 'date-fns';
           <!-- Action Buttons -->
           <div class="flex gap-4">
             <button
+              *ngIf="!isAttending"
               (click)="joinActivity()"
               class="flex-1 py-2 px-4 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity duration-300"
             >
               Join Activity
             </button>
             <button
-              *ngIf="activity.hostId === '1'"
+              *ngIf="isAttending"
+              (click)="leaveActivity()"
+              class="flex-1 py-2 px-4 bg-gradient-to-r from-red-500 to-orange-500 rounded-lg hover:opacity-90 transition-opacity duration-300"
+            >
+              Leave Activity
+            </button>
+            <button
+              *ngIf="activity.hostId === currentUserId"
               (click)="editActivity()"
               class="py-2 px-4 bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300"
             >
               Edit
+            </button>
+            <button
+              *ngIf="activity.hostId === currentUserId"
+              (click)="deleteActivity()"
+              class="py-2 px-4 bg-red-500/20 text-red-300 rounded-lg hover:bg-red-500/30 transition-colors duration-300"
+            >
+              Delete
             </button>
           </div>
         </div>
@@ -89,11 +106,13 @@ import { format } from 'date-fns';
 })
 export class ActivityDetailComponent implements OnInit {
   activity?: Activity;
+  currentUserId = '1'; // TODO: Get from auth service
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private activityService: ActivityService
+    private activityService: ActivityService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -109,20 +128,87 @@ export class ActivityDetailComponent implements OnInit {
     }
   }
 
+  get isAttending(): boolean {
+    return this.activity?.attendees.includes(this.currentUserId) ?? false;
+  }
+
   formatDate(date: Date): string {
     return format(new Date(date), 'MMM d, yyyy h:mm a');
   }
 
-  joinActivity() {
-    if (this.activity) {
-      // TODO: Implement join logic
-      console.log('Joining activity:', this.activity.id);
-    }
+  async joinActivity() {
+    if (!this.activity) return;
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Join Activity',
+        message: `Are you sure you want to join "${this.activity.title}"?`,
+        confirmText: 'Join',
+        cancelText: 'Cancel'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && this.activity) {
+        this.activityService.joinActivity(this.activity.id, this.currentUserId)
+          .subscribe(updatedActivity => {
+            if (updatedActivity) {
+              this.activity = updatedActivity;
+            }
+          });
+      }
+    });
+  }
+
+  async leaveActivity() {
+    if (!this.activity) return;
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Leave Activity',
+        message: `Are you sure you want to leave "${this.activity.title}"?`,
+        confirmText: 'Leave',
+        cancelText: 'Cancel'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && this.activity) {
+        this.activityService.leaveActivity(this.activity.id, this.currentUserId)
+          .subscribe(updatedActivity => {
+            if (updatedActivity) {
+              this.activity = updatedActivity;
+            }
+          });
+      }
+    });
   }
 
   editActivity() {
     if (this.activity) {
       this.router.navigate(['/education/edit', this.activity.id]);
     }
+  }
+
+  async deleteActivity() {
+    if (!this.activity) return;
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Delete Activity',
+        message: `Are you sure you want to delete "${this.activity.title}"? This action cannot be undone.`,
+        confirmText: 'Delete',
+        cancelText: 'Cancel'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && this.activity) {
+        this.activityService.deleteActivity(this.activity.id)
+          .subscribe(() => {
+            this.router.navigate(['/education']);
+          });
+      }
+    });
   }
 }
