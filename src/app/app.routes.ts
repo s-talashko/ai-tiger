@@ -12,6 +12,18 @@ export const routes: Routes = [
     loadComponent: () => import('./features/education/education.component').then(m => m.EducationComponent)
   },
   {
+    path: 'education/new',
+    loadComponent: () => import('./features/education/activity-form/activity-form.component').then(m => m.ActivityFormComponent)
+  },
+  {
+    path: 'education/edit/:id',
+    loadComponent: () => import('./features/education/activity-form/activity-form.component').then(m => m.ActivityFormComponent)
+  },
+  {
+    path: 'education/:id',
+    loadComponent: () => import('./features/education/activity-detail/activity-detail.component').then(m => m.ActivityDetailComponent)
+  },
+  {
     path: 'travel',
     loadComponent: () => import('./features/travel/travel.component').then(m => m.TravelComponent)
   },

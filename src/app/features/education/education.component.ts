@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Activity, ActivityType } from './models/activity.model';
 import { ActivityService } from './services/activity.service';
@@ -18,7 +18,15 @@ import { format } from 'date-fns';
           <h2 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Floating Library
           </h2>
-          <a routerLink="/" class="text-cyan-400 hover:text-cyan-300 transition-colors duration-300">← Back to Dashboard</a>
+          <div class="flex items-center gap-4">
+            <button
+              (click)="createActivity()"
+              class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity duration-300"
+            >
+              Create Activity
+            </button>
+            <a routerLink="/" class="text-cyan-400 hover:text-cyan-300 transition-colors duration-300">← Back to Dashboard</a>
+          </div>
         </div>
 
         <!-- Search and Filters -->
@@ -45,7 +53,8 @@ import { format } from 'date-fns';
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
           *ngFor="let activity of filteredActivities"
-          class="bg-opacity-20 bg-white backdrop-blur-lg rounded-xl p-6 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
+          class="bg-opacity-20 bg-white backdrop-blur-lg rounded-xl p-6 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 cursor-pointer"
+          (click)="viewActivity(activity.id)"
         >
           <img
             [src]="activity.imageUrl"
@@ -72,11 +81,6 @@ import { format } from 'date-fns';
                 #{{ tag }}
               </span>
             </div>
-            <button
-              class="mt-4 w-full py-2 px-4 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity duration-300"
-            >
-              Join Activity
-            </button>
           </div>
         </div>
       </div>
@@ -88,7 +92,10 @@ export class EducationComponent implements OnInit {
   searchTerm = '';
   selectedType: ActivityType | '' = '';
 
-  constructor(private activityService: ActivityService) {}
+  constructor(
+    private activityService: ActivityService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.activityService.getActivities().subscribe(activities => {
@@ -107,5 +114,13 @@ export class EducationComponent implements OnInit {
 
   formatDate(date: Date): string {
     return format(new Date(date), 'MMM d, yyyy h:mm a');
+  }
+
+  createActivity() {
+    this.router.navigate(['/education/new']);
+  }
+
+  viewActivity(id: string) {
+    this.router.navigate(['/education', id]);
   }
 }
