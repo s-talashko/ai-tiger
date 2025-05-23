@@ -98,6 +98,7 @@ import { ActivityService } from '../services/activity.service';
                 type="text"
                 formControlName="tags"
                 class="w-full px-4 py-2 bg-black/30 rounded-lg border border-white/10 focus:outline-none focus:border-cyan-400"
+                placeholder="Enter tags separated by commas"
               />
             </div>
           </div>
@@ -105,8 +106,7 @@ import { ActivityService } from '../services/activity.service';
           <div class="flex gap-4">
             <button
               type="submit"
-              [disabled]="activityForm.invalid"
-              class="flex-1 py-2 px-4 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              class="flex-1 py-2 px-4 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity duration-300"
             >
               {{ isEditMode ? 'Update Activity' : 'Create Activity' }}
             </button>
