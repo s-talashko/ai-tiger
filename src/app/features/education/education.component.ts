@@ -12,21 +12,23 @@ import { format } from 'date-fns';
   imports: [CommonModule, RouterLink, FormsModule],
   template: `
     <div class="space-y-6">
+      <!-- Back Link -->
+      <div class="flex justify-end">
+        <a routerLink="/" class="text-cyan-400 hover:text-cyan-300 transition-colors duration-300">← Back to Dashboard</a>
+      </div>
+
       <!-- Header -->
       <div class="p-6 bg-opacity-20 bg-white backdrop-blur-lg rounded-xl">
         <div class="flex items-center justify-between mb-6">
           <h2 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Education and Social Activities
           </h2>
-          <div class="flex items-center gap-4">
-            <button
-              (click)="createActivity()"
-              class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity duration-300"
-            >
-              Create Activity
-            </button>
-            <a routerLink="/" class="text-cyan-400 hover:text-cyan-300 transition-colors duration-300">← Back to Dashboard</a>
-          </div>
+          <button
+            (click)="createActivity()"
+            class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity duration-300"
+          >
+            Create Activity
+          </button>
         </div>
 
         <!-- Search and Filters -->
