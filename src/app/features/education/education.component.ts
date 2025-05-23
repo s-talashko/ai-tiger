@@ -13,7 +13,7 @@ import { format } from 'date-fns';
   template: `
     <div class="space-y-6">
       <!-- Back Link -->
-      <div class="flex justify-end">
+      <div>
         <a routerLink="/" class="text-cyan-400 hover:text-cyan-300 transition-colors duration-300">← Back to Dashboard</a>
       </div>
 
