@@ -145,7 +145,11 @@ export class ActivityDetailComponent implements OnInit {
         message: `Are you sure you want to join "${this.activity.title}"?`,
         confirmText: 'Join',
         cancelText: 'Cancel'
-      }
+      },
+      position: { top: '20vh' },
+      width: '400px',
+      panelClass: 'custom-dialog-container',
+      backdropClass: 'custom-backdrop'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -169,7 +173,11 @@ export class ActivityDetailComponent implements OnInit {
         message: `Are you sure you want to leave "${this.activity.title}"?`,
         confirmText: 'Leave',
         cancelText: 'Cancel'
-      }
+      },
+      position: { top: '20vh' },
+      width: '400px',
+      panelClass: 'custom-dialog-container',
+      backdropClass: 'custom-backdrop'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -199,7 +207,11 @@ export class ActivityDetailComponent implements OnInit {
         message: `Are you sure you want to delete "${this.activity.title}"? This action cannot be undone.`,
         confirmText: 'Delete',
         cancelText: 'Cancel'
-      }
+      },
+      position: { top: '20vh' },
+      width: '400px',
+      panelClass: 'custom-dialog-container',
+      backdropClass: 'custom-backdrop'
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -51,3 +51,20 @@ body {
 .animate-glow {
   animation: glow 2s ease-in-out infinite;
 }
+
+/* Dialog Styles */
+.custom-dialog-container {
+  @apply bg-gray-900 text-white rounded-xl border border-white/10;
+}
+
+.custom-backdrop {
+  @apply bg-black/50 backdrop-blur-sm;
+}
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: transparent !important;
+}
+
+.mat-mdc-dialog-surface {
+  @apply bg-transparent shadow-none !important;
+}
