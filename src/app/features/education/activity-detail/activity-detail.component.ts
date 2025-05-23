@@ -146,9 +146,9 @@ export class ActivityDetailComponent implements OnInit {
         confirmText: 'Join',
         cancelText: 'Cancel'
       },
-      position: { top: '20vh' },
+      position: { left: '50%', top: '50%' },
       width: '400px',
-      panelClass: 'custom-dialog-container',
+      panelClass: ['custom-dialog-container', 'centered-dialog'],
       backdropClass: 'custom-backdrop'
     });
 
@@ -174,9 +174,9 @@ export class ActivityDetailComponent implements OnInit {
         confirmText: 'Leave',
         cancelText: 'Cancel'
       },
-      position: { top: '20vh' },
+      position: { left: '50%', top: '50%' },
       width: '400px',
-      panelClass: 'custom-dialog-container',
+      panelClass: ['custom-dialog-container', 'centered-dialog'],
       backdropClass: 'custom-backdrop'
     });
 
@@ -208,9 +208,9 @@ export class ActivityDetailComponent implements OnInit {
         confirmText: 'Delete',
         cancelText: 'Cancel'
       },
-      position: { top: '20vh' },
+      position: { left: '50%', top: '50%' },
       width: '400px',
-      panelClass: 'custom-dialog-container',
+      panelClass: ['custom-dialog-container', 'centered-dialog'],
       backdropClass: 'custom-backdrop'
     });
 
