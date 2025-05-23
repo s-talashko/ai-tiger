@@ -5,8 +5,8 @@ import { Activity } from '../models/activity.model';
 import { ActivityService } from '../services/activity.service';
 import { format } from 'date-fns';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
-import { ErrorDialogComponent } from '../components/error-dialog/error-dialog.component';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { ErrorDialogComponent } from '../../components/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-activity-detail',
