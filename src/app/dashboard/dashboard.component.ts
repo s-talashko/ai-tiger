@@ -38,7 +38,7 @@ export class DashboardComponent {
       animationState: 'inactive'
     },
     {
-      name: 'Floating Library',
+      name: 'Education and Social Activities',
       icon: '📚',
       route: '/education',
       description: 'Discover learning events and social activities',
