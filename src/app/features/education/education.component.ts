@@ -88,10 +88,8 @@ import { format } from 'date-fns';
       </div>
 
       <!-- Counter -->
-      <div class="p-4 bg-opacity-20 bg-white backdrop-blur-lg rounded-xl text-center">
-        <p class="text-gray-300">
-          Showing {{ filteredActivities.length }} of {{ activities.length }} activities
-        </p>
+      <div class="mt-4 text-sm text-gray-400 text-right">
+        {{ filteredActivities.length }} of {{ activities.length }} activities
       </div>
     </div>
   `
