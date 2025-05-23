@@ -6,6 +6,7 @@ import { ActivityService } from '../services/activity.service';
 import { format } from 'date-fns';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
+import { ErrorDialogComponent } from '../components/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-activity-detail',
@@ -118,10 +119,17 @@ export class ActivityDetailComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.activityService.getActivity(id).subscribe(activity => {
-        if (activity) {
-          this.activity = activity;
-        } else {
+      this.activityService.getActivity(id).subscribe({
+        next: (activity) => {
+          if (activity) {
+            this.activity = activity;
+          } else {
+            this.showError('Activity not found');
+            this.router.navigate(['/education']);
+          }
+        },
+        error: (error) => {
+          this.showError(error.message);
           this.router.navigate(['/education']);
         }
       });
@@ -134,6 +142,16 @@ export class ActivityDetailComponent implements OnInit {
 
   formatDate(date: Date): string {
     return format(new Date(date), 'MMM d, yyyy h:mm a');
+  }
+
+  private showError(message: string): void {
+    this.dialog.open(ErrorDialogComponent, {
+      data: { message },
+      width: '400px',
+      maxWidth: '90vw',
+      panelClass: ['custom-dialog-container', 'centered-dialog'],
+      backdropClass: 'custom-backdrop'
+    });
   }
 
   async joinActivity() {
@@ -156,12 +174,14 @@ export class ActivityDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result && this.activity) {
-        this.activityService.joinActivity(this.activity.id, this.currentUserId)
-          .subscribe(updatedActivity => {
+        this.activityService.joinActivity(this.activity.id, this.currentUserId).subscribe({
+          next: (updatedActivity) => {
             if (updatedActivity) {
               this.activity = updatedActivity;
             }
-          });
+          },
+          error: (error) => this.showError(error.message)
+        });
       }
     });
   }
@@ -186,12 +206,14 @@ export class ActivityDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result && this.activity) {
-        this.activityService.leaveActivity(this.activity.id, this.currentUserId)
-          .subscribe(updatedActivity => {
+        this.activityService.leaveActivity(this.activity.id, this.currentUserId).subscribe({
+          next: (updatedActivity) => {
             if (updatedActivity) {
               this.activity = updatedActivity;
             }
-          });
+          },
+          error: (error) => this.showError(error.message)
+        });
       }
     });
   }
@@ -222,10 +244,12 @@ export class ActivityDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result && this.activity) {
-        this.activityService.deleteActivity(this.activity.id)
-          .subscribe(() => {
+        this.activityService.deleteActivity(this.activity.id).subscribe({
+          next: () => {
             this.router.navigate(['/education']);
-          });
+          },
+          error: (error) => this.showError(error.message)
+        });
       }
     });
   }
