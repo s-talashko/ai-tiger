@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.feature-card {
+  @apply relative overflow-hidden rounded-lg p-6 transition-all duration-300;
+}
+
+.feature-card::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 opacity-0 transition-opacity duration-300;
+}
+
+.feature-card:hover::before {
+  @apply opacity-100;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px #4f46e5, 0 0 10px #4f46e5, 0 0 15px #4f46e5;
+  }
+  50% {
+    box-shadow: 0 0 10px #4f46e5, 0 0 20px #4f46e5, 0 0 30px #4f46e5;
+  }
+  100% {
+    box-shadow: 0 0 5px #4f46e5, 0 0 10px #4f46e5, 0 0 15px #4f46e5;
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
