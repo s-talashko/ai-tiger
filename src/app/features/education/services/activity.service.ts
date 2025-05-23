@@ -41,6 +41,84 @@ export class ActivityService {
             hostName: 'Social Committee',
             attendees: ['1', '4', '5'],
             tags: ['networking', 'social', 'fun']
+          },
+          {
+            id: '3',
+            title: 'Zero Gravity Team Building',
+            description: 'Experience team building exercises in our zero gravity chamber.',
+            type: 'Team-building',
+            date: new Date('2025-05-01T10:00:00'),
+            location: 'Zero-G Chamber',
+            imageUrl: 'https://images.pexels.com/photos/41162/moon-landing-apollo-11-nasa-buzz-aldrin-41162.jpeg',
+            hostId: '3',
+            hostName: 'Captain Sarah',
+            attendees: ['2', '3', '4'],
+            tags: ['team-building', 'zero-g', 'adventure']
+          },
+          {
+            id: '4',
+            title: 'Advanced AI Systems Workshop',
+            description: 'Deep dive into the latest AI systems powering our space operations.',
+            type: 'Education',
+            date: new Date('2025-05-10T09:00:00'),
+            location: 'AI Lab Alpha',
+            imageUrl: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg',
+            hostId: '4',
+            hostName: 'Dr. Neural',
+            attendees: ['1', '5', '6'],
+            tags: ['ai', 'advanced', 'technology']
+          },
+          {
+            id: '5',
+            title: 'Cosmic Karaoke Night',
+            description: 'Sing your heart out among the stars!',
+            type: 'Social',
+            date: new Date('2025-05-15T20:00:00'),
+            location: 'Recreation Pod Beta',
+            imageUrl: 'https://images.pexels.com/photos/3779448/pexels-photo-3779448.jpeg',
+            hostId: '5',
+            hostName: 'Entertainment Crew',
+            attendees: ['2', '4', '6'],
+            tags: ['music', 'fun', 'entertainment']
+          },
+          {
+            id: '6',
+            title: 'Space Gardening 101',
+            description: 'Learn how to grow your own food in space.',
+            type: 'Education',
+            date: new Date('2025-05-20T15:00:00'),
+            location: 'Hydroponics Bay',
+            imageUrl: 'https://images.pexels.com/photos/2132168/pexels-photo-2132168.jpeg',
+            hostId: '6',
+            hostName: 'Botanist Jane',
+            attendees: ['1', '3', '5'],
+            tags: ['gardening', 'sustainability', 'beginner']
+          },
+          {
+            id: '7',
+            title: 'Virtual Mars Expedition',
+            description: 'Join a virtual reality expedition to Mars surface.',
+            type: 'Team-building',
+            date: new Date('2025-06-01T13:00:00'),
+            location: 'VR Suite Gamma',
+            imageUrl: 'https://images.pexels.com/photos/73910/mars-mars-surface-science-space-73910.jpeg',
+            hostId: '7',
+            hostName: 'Explorer Mike',
+            attendees: ['2', '4', '6'],
+            tags: ['mars', 'vr', 'exploration']
+          },
+          {
+            id: '8',
+            title: 'Space Photography Workshop',
+            description: 'Learn to capture the beauty of space through your lens.',
+            type: 'Education',
+            date: new Date('2025-06-10T11:00:00'),
+            location: 'Observation Dome',
+            imageUrl: 'https://images.pexels.com/photos/87009/earth-soil-creep-moon-lunar-surface-87009.jpeg',
+            hostId: '8',
+            hostName: 'Photographer Alex',
+            attendees: ['1', '3', '5'],
+            tags: ['photography', 'art', 'space']
           }
         ];
         this.saveToStorage();
