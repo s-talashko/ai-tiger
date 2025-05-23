@@ -16,7 +16,7 @@ import { format } from 'date-fns';
       <div class="p-6 bg-opacity-20 bg-white backdrop-blur-lg rounded-xl">
         <div class="flex items-center justify-between mb-6">
           <h2 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-            Floating Library
+            Education and Social Activities
           </h2>
           <div class="flex items-center gap-4">
             <button
