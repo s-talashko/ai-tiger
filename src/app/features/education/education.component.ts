@@ -86,6 +86,13 @@ import { format } from 'date-fns';
           </div>
         </div>
       </div>
+
+      <!-- Counter -->
+      <div class="p-4 bg-opacity-20 bg-white backdrop-blur-lg rounded-xl text-center">
+        <p class="text-gray-300">
+          Showing {{ filteredActivities.length }} of {{ activities.length }} activities
+        </p>
+      </div>
     </div>
   `
 })
