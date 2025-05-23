@@ -18,14 +18,14 @@ import { format } from 'date-fns';
       </div>
 
       <!-- Header -->
-      <div class="p-6 bg-opacity-20 bg-white backdrop-blur-lg rounded-xl fade-in-scale">
+      <div class="p-6 bg-opacity-20 bg-white backdrop-blur-lg rounded-xl">
         <div class="flex items-center justify-between mb-6">
-          <h2 class="text-2xl font-bold gradient-text">
+          <h2 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Education and Social Activities
           </h2>
           <button
             (click)="createActivity()"
-            class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-all duration-300 transform hover:scale-105 button-hover-effect"
+            class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-all duration-300"
           >
             Create Activity
           </button>
@@ -37,11 +37,11 @@ import { format } from 'date-fns';
             type="text"
             [(ngModel)]="searchTerm"
             placeholder="Search activities..."
-            class="flex-1 px-4 py-2 bg-black/30 rounded-lg border border-white/10 focus:outline-none focus:border-cyan-400 transition-all duration-300"
+            class="flex-1 px-4 py-2 bg-black/30 rounded-lg border border-white/10 focus:outline-none focus:border-cyan-400 transition-colors duration-300"
           />
           <select
             [(ngModel)]="selectedType"
-            class="px-4 py-2 bg-black/30 rounded-lg border border-white/10 focus:outline-none focus:border-cyan-400 transition-all duration-300"
+            class="px-4 py-2 bg-black/30 rounded-lg border border-white/10 focus:outline-none focus:border-cyan-400 transition-colors duration-300"
           >
             <option value="">All Types</option>
             <option value="Education">Education</option>
@@ -54,22 +54,21 @@ import { format } from 'date-fns';
       <!-- Activity Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
-          *ngFor="let activity of filteredActivities; let i = index"
-          class="bg-opacity-20 bg-white backdrop-blur-lg rounded-xl p-6 hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 cursor-pointer pulse-on-hover slide-in"
-          [style.animation-delay]="i * 0.1 + 's'"
+          *ngFor="let activity of filteredActivities"
+          class="bg-opacity-20 bg-white backdrop-blur-lg rounded-xl p-6 hover:shadow-lg transition-all duration-300 cursor-pointer"
           (click)="viewActivity(activity.id)"
         >
           <img
             [src]="activity.imageUrl"
             [alt]="activity.title"
-            class="w-full h-48 object-cover rounded-lg mb-4 transform transition-transform duration-300 hover:scale-105"
+            class="w-full h-48 object-cover rounded-lg mb-4"
           />
           <div class="space-y-2">
-            <h3 class="text-xl font-bold gradient-text">
+            <h3 class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
               {{ activity.title }}
             </h3>
             <div class="flex items-center gap-2 text-sm text-gray-300">
-              <span class="bg-cyan-500/20 px-2 py-1 rounded animate-float">{{ activity.type }}</span>
+              <span class="bg-cyan-500/20 px-2 py-1 rounded">{{ activity.type }}</span>
               <span>{{ formatDate(activity.date) }}</span>
             </div>
             <p class="text-gray-300">{{ activity.description }}</p>
@@ -79,7 +78,7 @@ import { format } from 'date-fns';
             <div class="flex flex-wrap gap-2 mt-2">
               <span
                 *ngFor="let tag of activity.tags"
-                class="text-xs bg-purple-500/20 px-2 py-1 rounded-full text-purple-300 transform transition-all duration-300 hover:scale-110"
+                class="text-xs bg-purple-500/20 px-2 py-1 rounded-full text-purple-300"
               >
                 #{{ tag }}
               </span>
