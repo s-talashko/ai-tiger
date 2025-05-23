@@ -59,6 +59,7 @@ import { ActivityService } from '../services/activity.service';
                 formControlName="date"
                 [class]="getInputClasses('date')"
                 [class.shake]="isFieldInvalid('date')"
+                [max]="'9999-12-31T23:59'"
               />
               <div *ngIf="isFieldInvalid('date')" class="mt-1 text-red-400 text-sm">
                 Date and time are required
@@ -106,14 +107,14 @@ import { ActivityService } from '../services/activity.service';
           <div class="flex gap-4">
             <button
               type="submit"
-              class="flex-1 py-2 px-4 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity duration-300"
+              class="btn-primary flex-1"
             >
               {{ isEditMode ? 'Update Activity' : 'Create Activity' }}
             </button>
             <button
               type="button"
               routerLink="/education"
-              class="py-2 px-4 bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300"
+              class="btn-secondary"
             >
               Cancel
             </button>
