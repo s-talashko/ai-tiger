@@ -24,7 +24,7 @@ import { ActivityService } from '../services/activity.service';
         <form [formGroup]="activityForm" (ngSubmit)="onSubmit()" class="space-y-6">
           <div class="space-y-4">
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-1">Title</label>
+              <label class="block text-sm font-medium text-gray-300 mb-1">Title *</label>
               <input
                 type="text"
                 formControlName="title"
@@ -45,7 +45,7 @@ import { ActivityService } from '../services/activity.service';
             </div>
 
             <div>
-              <label class="block text-sm font-medium text-gray-300 mb-1">Date and Time</label>
+              <label class="block text-sm font-medium text-gray-300 mb-1">Date and Time *</label>
               <input
                 type="datetime-local"
                 formControlName="date"
@@ -124,11 +124,11 @@ export class ActivityFormComponent implements OnInit {
   ) {
     this.activityForm = this.fb.group({
       title: ['', Validators.required],
-      type: ['Education', Validators.required],
+      type: ['Education'],
       date: ['', Validators.required],
-      location: ['', Validators.required],
+      location: [''],
       imageUrl: [''],
-      description: ['', Validators.required],
+      description: [''],
       tags: ['']
     });
   }
@@ -155,7 +155,7 @@ export class ActivityFormComponent implements OnInit {
       const formValue = this.activityForm.value;
       const activity: Partial<Activity> = {
         ...formValue,
-        tags: formValue.tags.split(',').map((tag: string) => tag.trim()),
+        tags: formValue.tags.split(',').map((tag: string) => tag.trim()).filter(Boolean),
         date: new Date(formValue.date),
         hostId: '1', // TODO: Get from auth service
         hostName: 'Current User', // TODO: Get from auth service
