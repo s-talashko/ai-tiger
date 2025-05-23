@@ -86,3 +86,45 @@ body {
   transform: translate(-50%, -50%) !important;
   z-index: 1000 !important;
 }
+
+/* Material Datepicker Styles */
+.mat-calendar {
+  @apply bg-gray-900 text-white !important;
+}
+
+.mat-calendar-body-selected {
+  @apply bg-cyan-500 !important;
+}
+
+.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  @apply border-purple-500 !important;
+}
+
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  @apply bg-white/10 !important;
+}
+
+.mat-calendar-arrow {
+  @apply border-white !important;
+}
+
+.mat-calendar-next-button,
+.mat-calendar-previous-button {
+  @apply text-white !important;
+}
+
+.mat-datepicker-toggle {
+  @apply text-white !important;
+}
+
+.mat-calendar-table-header {
+  @apply text-gray-400 !important;
+}
+
+.mat-calendar-body-cell-content {
+  @apply text-white !important;
+}
+
+.mat-calendar-body-disabled > .mat-calendar-body-cell-content {
+  @apply text-gray-600 !important;
+}

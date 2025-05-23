@@ -4,11 +4,24 @@ import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Activity, ActivityType } from '../models/activity.model';
 import { ActivityService } from '../services/activity.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-activity-form',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterLink,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
   template: `
     <div class="space-y-6">
       <!-- Header -->
@@ -54,12 +67,17 @@ import { ActivityService } from '../services/activity.service';
 
             <div>
               <label class="block text-sm font-medium mb-1" [class]="getFieldTextColor('date')">Date and Time *</label>
-              <input
-                type="datetime-local"
-                formControlName="date"
-                [class]="getInputClasses('date')"
-                [class.shake]="isFieldInvalid('date')"
-              />
+              <mat-form-field appearance="fill" class="w-full">
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="date"
+                  [class.shake]="isFieldInvalid('date')"
+                  placeholder="Choose a date"
+                >
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
               <div *ngIf="isFieldInvalid('date')" class="mt-1 text-red-400 text-sm">
                 Date and time are required
               </div>
@@ -106,14 +124,14 @@ import { ActivityService } from '../services/activity.service';
           <div class="flex gap-4">
             <button
               type="submit"
-              class="flex-1 py-2 px-4 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg hover:opacity-90 transition-opacity duration-300"
+              class="btn-primary flex-1"
             >
               {{ isEditMode ? 'Update Activity' : 'Create Activity' }}
             </button>
             <button
               type="button"
               routerLink="/education"
-              class="py-2 px-4 bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300"
+              class="btn-secondary"
             >
               Cancel
             </button>
@@ -131,6 +149,41 @@ import { ActivityService } from '../services/activity.service';
       20%, 80% { transform: translate3d(2px, 0, 0); }
       30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
       40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+
+    ::ng-deep {
+      .mat-mdc-form-field {
+        @apply bg-black/30 rounded-lg;
+      }
+
+      .mat-mdc-text-field-wrapper {
+        @apply bg-transparent;
+      }
+
+      .mat-mdc-form-field-focus-overlay {
+        @apply bg-transparent;
+      }
+
+      .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+        @apply bg-transparent;
+      }
+
+      .mat-mdc-form-field-flex {
+        @apply bg-transparent;
+      }
+
+      .mdc-line-ripple::before, 
+      .mdc-line-ripple::after {
+        @apply border-none;
+      }
+
+      .mat-datepicker-toggle {
+        @apply text-white;
+      }
+
+      .mat-calendar {
+        @apply bg-gray-900;
+      }
     }
   `]
 })
@@ -165,7 +218,7 @@ export class ActivityFormComponent implements OnInit {
         if (activity) {
           this.activityForm.patchValue({
             ...activity,
-            date: new Date(activity.date).toISOString().slice(0, 16),
+            date: new Date(activity.date),
             tags: activity.tags.join(', ')
           });
         }
@@ -195,7 +248,6 @@ export class ActivityFormComponent implements OnInit {
       const activity: Partial<Activity> = {
         ...formValue,
         tags: formValue.tags.split(',').map((tag: string) => tag.trim()).filter(Boolean),
-        date: new Date(formValue.date),
         hostId: '1', // TODO: Get from auth service
         hostName: 'Current User', // TODO: Get from auth service
         attendees: []
